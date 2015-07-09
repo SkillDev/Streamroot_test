@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<title>Test recrutement Streamroot</title>
+<!-- 	<link rel="stylesheet" media="screen" href="Views/dist/css/bootstrap.css" type="text/css"/>
+ -->	<link rel="stylesheet" media="screen" href="Views/style.css" type="text/css"/>
+	<meta name="description" content="Test Streamroot"/>
+</head>
+<body>
+
+
+	<header>
+		<h1>Test recrutement Streamroot</h1>	
+	</header>
+
+	<div id="img">
+
+	</div>
+	<script type="text/javascript" src="jQuery.js"> </script>	
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	  var socket = io.connect('http://localhost:1337');
+	  socket.on('firstconnect', function (data) {
+	    var image = data.image;
+	    console.log(image);
+	    $('#img').html('<img src="' + image + '" title="image"/>');
+	    socket.emit('my other event', { my: 'data' });
+	  });
+	</script>
+	<script type="text/javascript" src="app.js"> </script>
+</body>
+</html>
