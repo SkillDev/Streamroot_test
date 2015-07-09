@@ -5,6 +5,8 @@ var app = express();
 var server = require('http').Server(app);
 //Appel à la bibliothèque socket.io
 var io = require('socket.io')(server);
+// compteur d'utilisateur
+var users = 0
 app.use(express.static('public'));
 // port du server
 server.listen(1337, function () {
@@ -16,9 +18,17 @@ app.get('/', function (req, res) {
 });
 //lorsq'une personne est connecter au server on lui envoie une image.
 io.on('connection', function (socket) {
-  socket.emit('firstconnect', { image: 'lol.png' });
+  // on incrément users jusqu'a un maximum de 5 utilisaters 5
+  users ++;
+  console.log(users);
+  if (users >= 5) {
+    users = 0;
+  }
+  if (users === 1) {
+      socket.emit('firstconnect', { image: 'lol.png' });
+  }
   socket.on('my other event', function (data) {
-    /*console.log(data);*/
+    console.log(data);
   });
 });
 
