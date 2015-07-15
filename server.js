@@ -1,9 +1,10 @@
 //Appel à la bibliothèque express
 var express = require('express');
+//Appel à la bibliothèque de webrtc
 var app = express();
 //Appel à la bibliothèque http
-var server = require('http').Server(app);
-//Appel à la bibliothèque socket.io
+var server = require('http').Server(app)
+;//Appel à la bibliothèque socket.io
 var io = require('socket.io')(server);
 // compteur d'utilisateur
 var users = 0
@@ -14,58 +15,29 @@ server.listen(1337, function () {
 });
 // route (la page d'accueil renvoi index.html)
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(/**/__dirname + '/index.html');
 });
-//lorsq'une personne est connecter au server on lui envoie une image.
+//lorsqu'une personne est connectée au server est qu'il est le seul à etre connecté on lui envoie une image.
 io.on('connection', function (socket) {
-  // on incrément users jusqu'a un maximum de 5 utilisaters 5
-  users ++;
-  console.log(users);
-  if (users >= 5) {
-    users = 0;
-  }
-  if (users === 1) {
-      socket.emit('firstconnect', { image: 'lol.png' });
-  }
-  socket.on('my other event', function (data) {
+    // on incrément users jusqu'a un maximum de 5 utilisaters 5
+    users ++;
+    console.log("utilisateur : " + users);
+    if (users === 1) {
+        //envoie du nom du fichier de l'image par un objet.
+        socket.emit('firstconnect', { image: 'Logo-streamroot.png' });
+        console.log('image téléchargé depuis le server');
+    }
+    if (users > 1 && users <= 5){   
+      console.log("on prend l'image de " + (users - 1));
+    }
+    if (users >= 5) {
+      
+      users = 0;
+    }
+/*  socket.on('my other event', function (data) {
     console.log(data);
-  });
+  });*/
 });
 
 
-
-
-
-
-
-
-
-
-//Appel à la bibliothèque http
-/*var http = require('http');
-//Appel à la bibliothèque express
-var express = require('express');
-var app = express();
-app.get('/', function(req, res){
-  res.send('hello world');
-});
-app.listen(8080);*/
-
-
-
-
-
-
-
-/*//Création et enregistrement du serveur dans httpServer
-httpServer = http.createServer(function (req, result) {
-	// Code http succes + type de donnée (dans notre cas une image)
-	result.writeHead(200, {"Content-Type": "image/jpeg"});
-});
-httpServer.listen(8080, function () {
-	console.log("Server launched");
-});
-var socketIo = require('socket.io').listen(httpServer);
-socketIo.on('connection', function (socket) {
-	console.log('new user');
-})*/
+users = 0;
