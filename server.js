@@ -17,7 +17,7 @@ server.listen(1337, function () {
 app.get('/', function (req, res) {
   res.sendFile(/**/__dirname + '/index.html');
 });
-//lorsqu'une personne est connectée au server est qu'il est le seul à etre connecté on lui envoie une image.
+//lorsqu'une personne est connecter au server et qu'il est le seul à etre connecter on lui envoie une image.
 io.on('connection', function (socket) {
     // on incrément users jusqu'a un maximum de 5 utilisaters 5
     users ++;
